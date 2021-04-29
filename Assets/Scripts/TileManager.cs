@@ -30,13 +30,15 @@ public class TileManager : MonoBehaviour
 
     void Update()
     {
+        gridMat.SetVector("FocusedPos", new Vector3(0, -100, 0));
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, 1000f))
         {
             Debug.DrawLine(hit.point, hit.point + hit.normal * .5f);
             Vector3Int index = PointToIndex(hit.point + hit.normal * .5f);
             Vector3 tile = IndexToWorld(index);
-            gridMat.SetVector("FocusedPos", Inbounds(index) ? tile : new Vector3(0, -100, 0));
+            if(Inbounds(index))
+                gridMat.SetVector("FocusedPos", tile);
             if (Input.GetMouseButtonDown(0) && Inbounds(index) && tiles[index.x, index.y, index.z] == null)
             {
                 bulgeTime = 0;
@@ -45,7 +47,7 @@ public class TileManager : MonoBehaviour
                 t.Set(GetNeighbors(index));
                 tiles[index.x, index.y, index.z] = t;
             }
-        }
+        } 
 
         bulge.w = bulgeCurve.Evaluate(bulgeTime);
         Shader.SetGlobalVector("_Bulge", bulge);

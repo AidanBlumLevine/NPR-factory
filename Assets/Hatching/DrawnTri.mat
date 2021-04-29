@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: OutlineNormals
-  m_Shader: {fileID: -6465566751694194690, guid: c3b4e70a73bd8b7429419bb32166976c, type: 3}
+  m_Name: DrawnTri
+  m_Shader: {fileID: -6465566751694194690, guid: f535edf8afec25841b06139556d55461, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -48,12 +48,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Boolean_FBFC8EE5: 1
-    - Vector1_448BCF3: 0.75
-    - Vector1_98EC642B: 0.002
-    - Vector1_BBD3C5CE: 0.02
-    - Vector1_CA670F4C: 14.84
-    - Vector1_F0F38051: 2
+    - Vector1_550DDF5A: 1
+    - Vector1_D7A7BD6B: 0.05
+    - Vector1_E68E71E: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -76,17 +73,17 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_128C096B: {r: 0.14901961, g: 0.24313727, b: 0.27450982, a: 1}
-    - Color_89AFA0D6: {r: 0.38431376, g: 0.6313726, b: 0.65882355, a: 1}
-    - Color_C1D97EA: {r: 0.10196079, g: 0.29803923, b: 0.34901962, a: 1}
-    - Color_D507FAB7: {r: 1, g: 1, b: 1, a: 1}
-    - Vector2_5FB9CB71: {r: 4, g: 8, b: 0, a: 0}
+    - Bulge: {r: 0, g: 0.5, b: 0, a: 0.84}
+    - Color_4C7594D4: {r: 0.15686275, g: 0.4, b: 0.43137255, a: 0}
+    - Color_75CEF21: {r: 0.20078321, g: 0.2766109, b: 0.3018868, a: 0}
+    - Color_820CB58A: {r: 0.14901961, g: 0.24313726, b: 0.27450982, a: 0}
+    - Color_D7BF786B: {r: 0.9245283, g: 0.8992175, b: 0.763172, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &998914484490172658
+--- !u!114 &5100083694643062311
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

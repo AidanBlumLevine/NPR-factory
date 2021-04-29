@@ -74,7 +74,7 @@ Material:
     m_Colors:
     - Color_2BFAC70E: {r: 0.24377, g: 0.4723994, b: 0.6226415, a: 0}
     - Color_CCE3C7F6: {r: 0.9303578, g: 0.9495921, b: 0.9528302, a: 0}
-    - FocusedPos: {r: -1, g: 2.5, b: -1, a: 0}
+    - FocusedPos: {r: 0, g: -100, b: 0, a: 0}
     - _BaseColor: {r: 0.08490568, g: 0.057271264, b: 0.057271264, a: 0.2784314}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

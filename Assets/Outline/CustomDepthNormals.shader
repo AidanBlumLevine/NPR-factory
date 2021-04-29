@@ -39,6 +39,7 @@
                 return o;
             }
             fixed4 frag(v2f i) : SV_Target {
+                
                 return EncodeDepthNormal (i.nz.w, i.nz.xyz);
             }
             ENDCG
