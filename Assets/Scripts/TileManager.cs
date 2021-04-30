@@ -5,7 +5,8 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
     public static TileManager Instance { get; private set; }
-    public GameObject selectedTile, st2;
+    [HideInInspector]
+    public GameObject selectedTile;
     public AnimationCurve bulgeCurve;
     Vector3Int gridSize;
     Material gridMat;
@@ -14,6 +15,7 @@ public class TileManager : MonoBehaviour
 
     Vector4 bulge;
     float bulgeTime;
+    public Color normalGridColor, edgeGridColor;
     void Awake()
     {
         if (Instance == null) { Instance = this; }
@@ -22,6 +24,7 @@ public class TileManager : MonoBehaviour
 
     void Start()
     {
+        selectedTile = null;
         gridSize = Grid.data.gridSize;
         gridMat = Grid.data.gridMat;
         tiles = new Tile[gridSize.x, gridSize.y, gridSize.z];
@@ -31,23 +34,58 @@ public class TileManager : MonoBehaviour
     void Update()
     {
         gridMat.SetVector("FocusedPos", new Vector3(0, -100, 0));
+        gridMat.SetVector("SelectedPos", new Vector3(0, -100, 0));
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, 1000f))
         {
-            Debug.DrawLine(hit.point, hit.point + hit.normal * .5f);
             Vector3Int index = PointToIndex(hit.point + hit.normal * .5f);
+
+            Tile hitTile;
+            if ((hitTile = hit.collider.gameObject.GetComponent<Tile>()) != null)
+            {
+                gridMat.SetVector("SelectedPos", hitTile.gameObject.transform.position);
+                if (Input.GetMouseButtonDown(1) && !Input.GetKey(KeyCode.Space))
+                {
+                    bulgeTime = 0;
+                    bulge = new Vector4(hitTile.transform.position.x, hitTile.transform.position.y, hitTile.transform.position.z, 0);
+                    hitTile.Delete();
+                }
+
+                //calculate real index
+                Vector3 dir = hit.point - hitTile.transform.position + hit.normal * .5f;
+                float ax = Mathf.Abs(dir.x);
+                float ay = Mathf.Abs(dir.y);
+                float az = Mathf.Abs(dir.z);
+                if (ax > ay && ax > az)
+                    dir = new Vector3(Mathf.Sign(dir.x), 0, 0);
+                if (ay > ax && ay > az)
+                    dir = new Vector3(0, Mathf.Sign(dir.y), 0);
+                if (az > ay && az > ax)
+                    dir = new Vector3(0, 0, Mathf.Sign(dir.z));
+                index = PointToIndex(hitTile.transform.position + dir);
+            }
+
             Vector3 tile = IndexToWorld(index);
-            if(Inbounds(index))
+            if (Inbounds(index) && tiles[index.x, index.y, index.z] != null)
+            {
+                if (hitTile == null)
+                    gridMat.SetVector("SelectedPos", tile);
+            }
+            else
+            {
                 gridMat.SetVector("FocusedPos", tile);
-            if (Input.GetMouseButtonDown(0) && Inbounds(index) && tiles[index.x, index.y, index.z] == null)
+                gridMat.SetColor("NearbyColor", Inbounds(index) ? normalGridColor : edgeGridColor);
+            }
+
+            if (selectedTile != null && Input.GetMouseButtonDown(0) && !Input.GetKey(KeyCode.Space) && Inbounds(index) && tiles[index.x, index.y, index.z] == null)
             {
                 bulgeTime = 0;
                 bulge = new Vector4(tile.x, tile.y, tile.z, 0);
-                Tile t = Instantiate(index.y == 0 ? selectedTile : st2, tile, Quaternion.identity).GetComponent<Tile>();
+                Tile t = Instantiate(selectedTile, tile, Quaternion.identity).GetComponent<Tile>();
                 t.Set(GetNeighbors(index));
                 tiles[index.x, index.y, index.z] = t;
             }
-        } 
+        }
 
         bulge.w = bulgeCurve.Evaluate(bulgeTime);
         Shader.SetGlobalVector("_Bulge", bulge);

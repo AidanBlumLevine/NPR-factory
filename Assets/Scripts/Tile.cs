@@ -28,7 +28,24 @@ public class Tile : MonoBehaviour
         neighbors[5 - index] = tile;
     }
 
-    public virtual void TileUpdate(){}
+    protected virtual void RemoveNeighbor(int index)
+    {
+        neighbors[5 - index] = null;
+    }
+
+    public virtual void TileUpdate() { }
+
+    public virtual void Delete()
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            if (neighbors[i] != null)
+            {
+                neighbors[i].RemoveNeighbor(i);
+            }
+        }
+        Destroy(gameObject);
+    }
 
     void SetOutlineID()
     {

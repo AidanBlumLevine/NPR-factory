@@ -20,9 +20,21 @@ public class Tile9Slice : Tile
         SetAppearance();
     }
 
+    protected override void RemoveNeighbor(int index)
+    {
+        base.RemoveNeighbor(index);
+        SetAppearance();
+    }
+
     public override void TileUpdate()
     {
         SetAppearance();
+    }
+
+    public override void Delete()
+    {
+        base.Delete();
+        TileManager.Instance.CornerUpdate(transform.position);
     }
 
     void SetAppearance()
@@ -74,6 +86,7 @@ public class Tile9Slice : Tile
 
         mf.mesh = new Mesh();
         mf.mesh.CombineMeshes(combine);
+        GetComponent<MeshCollider>().sharedMesh = mf.mesh;
     }
 
     bool ShouldMerge(Tile t)

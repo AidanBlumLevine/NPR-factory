@@ -18,6 +18,12 @@ public class Tile4Way : Tile
         SetAppearance();
     }
 
+    protected override void RemoveNeighbor(int index)
+    {
+        base.RemoveNeighbor(index);
+        SetAppearance();
+    }
+
     public override void TileUpdate()
     {
         SetAppearance();
@@ -94,7 +100,7 @@ public class Tile4Way : Tile
             {
                 combine[0].mesh = bend;
                 combine[0].transform = Matrix4x4.Rotate(Quaternion.Euler(-90, 180, 0));
-           }
+            }
         }
         if (count == 3)
         {
@@ -120,6 +126,7 @@ public class Tile4Way : Tile
             }
         }
         mf.mesh.CombineMeshes(combine);
+        GetComponent<MeshCollider>().sharedMesh = mf.mesh;
     }
 
     bool ShouldMerge(Tile t)
