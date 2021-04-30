@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
@@ -35,11 +33,14 @@ public class CameraManager : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(1))
             mouseDown = false;
-        
-        transform.position = focusedCenter + Quaternion.Euler(reclineAngle, rot, 0) * new Vector3(0, 10, 0);
+
+        transform.position = focusedCenter + Quaternion.Euler(reclineAngle, rot, 0) * new Vector3(0, 20, 0);
         transform.LookAt(focusedCenter);
+
         //dist += Input.GetAxis("Mouse ScrollWheel") * zoomSpeed * -1;
-        dist = Mathf.Clamp(dist, 1, 8);
+        //dist = Mathf.Clamp(dist, 1, 8);
+        dist = (Grid.data.gridSize.z + 1) / 2;
+        focusedCenter = new Vector3(0, Grid.data.gridSize.y / 2f - 1f, 0);
         cam.orthographicSize = dist;
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
     public static TileManager Instance { get; private set; }
-    public GameObject selectedTile;
+    public GameObject selectedTile, st2;
     public AnimationCurve bulgeCurve;
     Vector3Int gridSize;
     Material gridMat;
@@ -43,7 +43,7 @@ public class TileManager : MonoBehaviour
             {
                 bulgeTime = 0;
                 bulge = new Vector4(tile.x, tile.y, tile.z, 0);
-                Tile t = Instantiate(selectedTile, tile, Quaternion.identity).GetComponent<Tile>();
+                Tile t = Instantiate(index.y == 0 ? selectedTile : st2, tile, Quaternion.identity).GetComponent<Tile>();
                 t.Set(GetNeighbors(index));
                 tiles[index.x, index.y, index.z] = t;
             }
