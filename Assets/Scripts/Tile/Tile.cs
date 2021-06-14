@@ -1,16 +1,26 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Flowable))]
 public class Tile : MonoBehaviour
 {
     public int mergeID;
+    [HideInInspector]
     public Tile[] neighbors;
+    [HideInInspector]
+    public Flowable flow;
+
     protected MeshRenderer renderer;
+
+    void Awake()
+    {
+        flow = GetComponent<Flowable>();
+        gameObject.name = gameObject.name + Random.Range(0, 1000).ToString();
+    }
 
     public virtual void Set(Tile[] neighbors)
     {
         renderer = GetComponent<MeshRenderer>();
-
 
         this.neighbors = neighbors;
         for (int i = 0; i < 6; i++)
@@ -34,6 +44,11 @@ public class Tile : MonoBehaviour
     }
 
     public virtual void TileUpdate() { }
+
+    protected virtual bool ShouldMerge(Tile t, int dirTowardsOther)
+    {
+        return t != null && t.mergeID == mergeID;
+    }
 
     public virtual void Delete()
     {
@@ -65,14 +80,11 @@ public class Tile : MonoBehaviour
         new Vector3Int(0,0,1),
         new Vector3Int(0,-1,0),
     };
-}
 
-public enum Dir
-{
-    Up = 0,
-    Down = 5,
-    Left = 2,
-    Right = 3,
-    Forward = 4,
-    Back = 1
+    public static int Up = 0;
+    public static int Down = 5;
+    public static int Left = 2;
+    public static int Right = 3;
+    public static int Forward = 4;
+    public static int Back = 1;
 }

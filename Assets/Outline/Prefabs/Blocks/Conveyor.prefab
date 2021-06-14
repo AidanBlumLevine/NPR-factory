@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 6760390496845839217}
   - component: {fileID: 5204525772933028188}
   - component: {fileID: 1063517080168054989}
-  - component: {fileID: 2138165807692325583}
   - component: {fileID: 2056266106188266376}
+  - component: {fileID: 2216844628074917370}
+  - component: {fileID: -6850706369182926734}
   m_Layer: 0
   m_Name: Conveyor
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138165807692325580}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.7599999, y: 0, z: -1.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -83,26 +84,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2138165807692325583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2138165807692325580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a5e770b47767874292f8c521c6dc293, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mergeID: 2
-  neighbors: []
-  straight: {fileID: -745928167409971724, guid: ff52f5a7f8e94ab46b4d59ae1d46b264, type: 3}
-  tpipe: {fileID: 3925360246919112806, guid: ff52f5a7f8e94ab46b4d59ae1d46b264, type: 3}
-  fourway: {fileID: -4453806867672132484, guid: ff52f5a7f8e94ab46b4d59ae1d46b264, type: 3}
-  bend: {fileID: 6055277006425145491, guid: ff52f5a7f8e94ab46b4d59ae1d46b264, type: 3}
-  core: {fileID: 3874432442672741690, guid: ff52f5a7f8e94ab46b4d59ae1d46b264, type: 3}
-  cap: {fileID: 4583407886439279732, guid: ff52f5a7f8e94ab46b4d59ae1d46b264, type: 3}
 --- !u!64 &2056266106188266376
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -117,3 +98,50 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8678823145569952518, guid: ff52f5a7f8e94ab46b4d59ae1d46b264, type: 3}
+--- !u!114 &2216844628074917370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138165807692325580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66f233986cf4a00419698eef0c041192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mergeID: 1
+  neighbors: []
+  flow: {fileID: 0}
+  straight: {fileID: -745928167409971724, guid: ff52f5a7f8e94ab46b4d59ae1d46b264, type: 3}
+  tpipe: {fileID: 3925360246919112806, guid: ff52f5a7f8e94ab46b4d59ae1d46b264, type: 3}
+  fourway: {fileID: -4453806867672132484, guid: ff52f5a7f8e94ab46b4d59ae1d46b264, type: 3}
+  bend: {fileID: 6055277006425145491, guid: ff52f5a7f8e94ab46b4d59ae1d46b264, type: 3}
+  core: {fileID: 3874432442672741690, guid: ff52f5a7f8e94ab46b4d59ae1d46b264, type: 3}
+  cap: {fileID: 4583407886439279732, guid: ff52f5a7f8e94ab46b4d59ae1d46b264, type: 3}
+--- !u!114 &-6850706369182926734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138165807692325580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fe28fa66e0889046b71664bc23c9d8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flowable: 1
+  connections:
+  - enabled: 0
+    direction: 0
+  - enabled: 1
+    direction: 0
+  - enabled: 1
+    direction: 0
+  - enabled: 1
+    direction: 0
+  - enabled: 1
+    direction: 0
+  - enabled: 0
+    direction: 0

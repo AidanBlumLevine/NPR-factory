@@ -22,28 +22,30 @@ float3 DecodeNormal(float4 enc)
     return n;
 }
 
-void Outline_float(float2 UV, float OutlineThickness, float NormalsSensitivity, float DepthSensitivity, float4 OutlineColor, float2 Noise, bool fineWidth, float zFlipped, out float4 Out)
+void Outline_float(float2 UV, float OutlineThickness, float NormalThickness, float NormalsSensitivity, float DepthSensitivity, float4 OutlineColor, float2 Noise, float zFlipped, out float4 Out)
 {
-    float halfScaleFloor = fineWidth ? OutlineThickness : floor(OutlineThickness * 0.5);
-    float halfScaleCeil = fineWidth ? OutlineThickness : ceil(OutlineThickness * 0.5);
     float2 Texel = (1.0) / float2(_CameraColorTexture_TexelSize.z, _CameraColorTexture_TexelSize.w);
 
     float2 uvSamples[4];
+    float2 uvSamplesNormal[4];
     float depthSamples[4];
     float3 normalSamples[4];
     float3 colorSamples[4];
 
-    uvSamples[0] = UV - float2(Texel.x, Texel.y) * halfScaleFloor * 0.5 + Noise;
-    uvSamples[1] = UV + float2(Texel.x, Texel.y) * halfScaleCeil * 0.5 + Noise;
-    uvSamples[2] = UV + float2(Texel.x * halfScaleCeil * 0.5, -Texel.y * halfScaleFloor * 0.5) + Noise;
-    uvSamples[3] = UV + float2(-Texel.x * halfScaleFloor * 0.5, Texel.y * halfScaleCeil * 0.5) + Noise;
+    uvSamples[0] = UV - float2(Texel.x, Texel.y) * OutlineThickness * 0.5 + Noise;
+    uvSamples[1] = UV + float2(Texel.x, Texel.y) * OutlineThickness * 0.5 + Noise;
+    uvSamples[2] = UV + float2(Texel.x * OutlineThickness * 0.5, -Texel.y * OutlineThickness * 0.5) + Noise;
+    uvSamples[3] = UV + float2(-Texel.x * OutlineThickness * 0.5, Texel.y * OutlineThickness * 0.5) + Noise;
+    uvSamplesNormal[0] = UV - float2(Texel.x, Texel.y) * NormalThickness * 0.5 + Noise;  
+    uvSamplesNormal[1] = UV + float2(Texel.x, Texel.y) * NormalThickness * 0.5 + Noise;
+    uvSamplesNormal[2] = UV + float2(Texel.x * NormalThickness * 0.5, -Texel.y * NormalThickness * 0.5) + Noise;
+    uvSamplesNormal[3] = UV + float2(-Texel.x * NormalThickness * 0.5, Texel.y * NormalThickness * 0.5) + Noise;
 
     for(int i = 0; i < 4 ; i++)
     {
         depthSamples[i] = SAMPLE_TEXTURE2D(_CameraDepthTexture, sampler_CameraDepthTexture, uvSamples[i]);
         depthSamples[i] = lerp(depthSamples[i], 1-depthSamples[i], zFlipped);
-        float4 depthNormals = SAMPLE_TEXTURE2D(_CameraDepthNormalsTexture, sampler_CameraDepthNormalsTexture, uvSamples[i]);
-        normalSamples[i] = DecodeNormal(depthNormals);
+        normalSamples[i] = DecodeNormal(SAMPLE_TEXTURE2D(_CameraDepthNormalsTexture, sampler_CameraDepthNormalsTexture, uvSamplesNormal[i]));
         colorSamples[i] = SAMPLE_TEXTURE2D(_CameraIDColorsTexture, sampler_CameraIDColorsTexture, uvSamples[i]);
     }
     //Depth

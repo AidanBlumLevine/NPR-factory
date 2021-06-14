@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-2815629752329047811
+--- !u!114 &-967352169644803395
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Yellow
-  m_Shader: {fileID: -6465566751694194690, guid: f535edf8afec25841b06139556d55461, type: 3}
+  m_Name: FogZ
+  m_Shader: {fileID: -6465566751694194690, guid: ad9d4fb1fa0daa4409bbfacb25dd38d3, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -56,14 +56,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_9DB88555_Texture_1:
+        m_Texture: {fileID: 2800000, guid: a20c3278839d3a145a1ec6ffaf656316, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_550DDF5A: 1
-    - Vector1_D7A7BD6B: 0.065
-    - Vector1_E68E71E: 1
+    - Boolean_1142E12A: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -86,10 +88,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_4C7594D4: {r: 0.9150943, g: 0.69317627, b: 0.17697577, a: 0}
-    - Color_75CEF21: {r: 0.42083484, g: 0.45270357, b: 0.46226418, a: 0}
-    - Color_820CB58A: {r: 0.14901961, g: 0.24313726, b: 0.27450982, a: 0}
-    - Color_D7BF786B: {r: 1, g: 1, b: 1, a: 0}
+    - Color_F004951C: {r: 0.14901961, g: 0.2392157, b: 0.2784314, a: 0}
+    - Vector2_CB1A6840: {r: 0, g: 0.24, b: 0, a: 0}
+    - Vector3_EFC5FF52: {r: 0, g: 0, b: 1, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

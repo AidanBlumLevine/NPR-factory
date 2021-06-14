@@ -6,6 +6,7 @@ public class Tile4Way : Tile
 {
     public Mesh straight, tpipe, fourway, bend, core, cap;
 
+    bool oldf, oldb, oldl, oldr;
     public override void Set(Tile[] neighbors)
     {
         base.Set(neighbors);
@@ -29,20 +30,50 @@ public class Tile4Way : Tile
         SetAppearance();
     }
 
+    protected override bool ShouldMerge(Tile t, int dirTowardsOther)
+    {
+        return t != null && flow.CanConnect(t.flow, dirTowardsOther);
+    }
+
     void SetAppearance()
     {
         MeshFilter mf = GetComponent<MeshFilter>();
-        bool forward = ShouldMerge(neighbors[(int)Dir.Forward]);
-        bool back = ShouldMerge(neighbors[(int)Dir.Back]);
-        bool left = ShouldMerge(neighbors[(int)Dir.Left]);
-        bool right = ShouldMerge(neighbors[(int)Dir.Right]);
+
+        bool forward = ShouldMerge(neighbors[Forward], Forward);
+        if (forward)
+            flow.Connect(neighbors[Forward].flow, Forward);
+        else
+            flow.Disconnect(Forward);
+        forward = flow.connections[Forward].attachedTo != null;
+
+        bool back = ShouldMerge(neighbors[Back], Back);
+        if (back)
+            flow.Connect(neighbors[Back].flow, Back);
+        else
+            flow.Disconnect(Back);
+        back = flow.connections[Back].attachedTo != null;
+
+        bool left = ShouldMerge(neighbors[Left], Left);
+        if (left)
+            flow.Connect(neighbors[Left].flow, Left);
+        else
+            flow.Disconnect(Left);
+        left = flow.connections[Left].attachedTo != null;
+
+        bool right = ShouldMerge(neighbors[Right], Right);
+        if (right)
+            flow.Connect(neighbors[Right].flow, Right);
+        else
+            flow.Disconnect(Right);
+        right = flow.connections[Right].attachedTo != null;
+
         int count = (forward ? 1 : 0) + (back ? 1 : 0) + (left ? 1 : 0) + (right ? 1 : 0);
 
         CombineInstance[] combine = new CombineInstance[1];
         combine[0].transform = Matrix4x4.Rotate(Quaternion.Euler(-90, 0, 0));
+
         if (forward && back && left && right)
             combine[0].mesh = fourway;
-
         if (!forward && !back && !left && !right)
             combine[0].mesh = core;
 
@@ -127,11 +158,6 @@ public class Tile4Way : Tile
         }
         mf.mesh.CombineMeshes(combine);
         GetComponent<MeshCollider>().sharedMesh = mf.mesh;
-    }
-
-    bool ShouldMerge(Tile t)
-    {
-        return t != null && t.mergeID == mergeID;
     }
 }
 

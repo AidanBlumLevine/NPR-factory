@@ -12,7 +12,7 @@ public class TileManager : MonoBehaviour
     Material gridMat;
 
     Tile[,,] tiles;
-
+    List<Tile>[,,] registeredUpdates;
     Vector4 bulge;
     float bulgeTime;
     public Color normalGridColor, edgeGridColor;
@@ -28,6 +28,7 @@ public class TileManager : MonoBehaviour
         gridSize = Grid.data.gridSize;
         gridMat = Grid.data.gridMat;
         tiles = new Tile[gridSize.x, gridSize.y, gridSize.z];
+        registeredUpdates = new List<Tile>[gridSize.x, gridSize.y, gridSize.z];
         bulge = new Vector4(0, -1000, 0, 0);
     }
 
@@ -49,6 +50,7 @@ public class TileManager : MonoBehaviour
                     bulgeTime = 0;
                     bulge = new Vector4(hitTile.transform.position.x, hitTile.transform.position.y, hitTile.transform.position.z, 0);
                     hitTile.Delete();
+                    TriggerRegisteredUpdates(PointToIndex(hitTile.transform.position));
                 }
 
                 //calculate real index
@@ -81,9 +83,10 @@ public class TileManager : MonoBehaviour
             {
                 bulgeTime = 0;
                 bulge = new Vector4(tile.x, tile.y, tile.z, 0);
-                Tile t = Instantiate(selectedTile, tile, Quaternion.identity).GetComponent<Tile>();
+                Tile t = Instantiate(selectedTile, tile, selectedTile.transform.rotation).GetComponent<Tile>();
                 t.Set(GetNeighbors(index));
                 tiles[index.x, index.y, index.z] = t;
+                TriggerRegisteredUpdates(index);
             }
         }
 
@@ -102,11 +105,6 @@ public class TileManager : MonoBehaviour
         return new Vector3(index.x - gridSize.x / 2f + .5f, index.y + .5f, index.z - gridSize.z / 2f + .5f);
     }
 
-    // Tile GetTileFromPos(Vector3 pos)
-    // {
-    //     return tiles[Mathf.FloorToInt(pos.x + gridSize.x / 2f), Mathf.FloorToInt(pos.y - .5f), Mathf.FloorToInt(pos.z + gridSize.z / 2f)];
-    // }
-
     bool Inbounds(Vector3Int i)
     {
         return i.x >= 0 && i.x < gridSize.x && i.y >= 0 && i.y < gridSize.y && i.z >= 0 && i.z < gridSize.z;
@@ -124,7 +122,20 @@ public class TileManager : MonoBehaviour
         return neighbors;
     }
 
-    public void CornerUpdate(Vector3 pos)
+    public void RegisterUpdate(Tile t, Vector3 pos)
+    {
+        Vector3Int i = PointToIndex(pos);
+        if (!Inbounds(i))
+            return;
+
+        if (registeredUpdates[i.x, i.y, i.z] == null)
+            registeredUpdates[i.x, i.y, i.z] = new List<Tile>();
+
+        registeredUpdates[i.x, i.y, i.z].Add(t);
+        registeredUpdates[i.x, i.y, i.z].RemoveAll(o => o == null);
+    }
+
+    public void RegisterCornerUpdate(Tile t, Vector3 pos)
     {
         Vector3Int[] corners = {
             new Vector3Int(1,0,1),
@@ -135,10 +146,18 @@ public class TileManager : MonoBehaviour
 
         foreach (Vector3Int v in corners)
         {
-            Vector3Int i = PointToIndex(pos + v);
-            if (Inbounds(i) && tiles[i.x, i.y, i.z] != null)
+            RegisterUpdate(t, v + pos);
+        }
+    }
+
+    public void TriggerRegisteredUpdates(Vector3Int index)
+    {
+        if (registeredUpdates[index.x, index.y, index.z] != null)
+        {
+            foreach (Tile toUpdate in registeredUpdates[index.x, index.y, index.z])
             {
-                tiles[i.x, i.y, i.z].TileUpdate();
+                if (toUpdate != null)
+                    toUpdate.TileUpdate();
             }
         }
     }
