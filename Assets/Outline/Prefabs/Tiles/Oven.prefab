@@ -202,8 +202,8 @@ GameObject:
   - component: {fileID: 8327209406514288224}
   - component: {fileID: 4672326494997353704}
   - component: {fileID: 6811893254651312698}
-  - component: {fileID: 1841776177191631496}
   - component: {fileID: -7452709084089465705}
+  - component: {fileID: -7354176460892630355}
   m_Layer: 0
   m_Name: Oven
   m_TagString: Untagged
@@ -289,22 +289,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.89075184, y: 0.87121475, z: 0.790752}
   m_Center: {x: 0.049999982, y: 0, z: -0.15361483}
---- !u!114 &1841776177191631496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6767256468363057745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d6e1abfaf156a248b0dbc00c0b985c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mergeID: 3
-  neighbors: []
-  flow: {fileID: 0}
-  connectorPrefab: {fileID: -7478227228420135192, guid: 1ff1e3ef12e91894094b84bbb670682a, type: 3}
 --- !u!114 &-7452709084089465705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,13 +305,42 @@ MonoBehaviour:
   connections:
   - enabled: 0
     direction: 0
+    enforced: 0
+    parent: {fileID: 0}
   - enabled: 0
     direction: 0
+    enforced: 0
+    parent: {fileID: 0}
   - enabled: 1
     direction: -1
+    enforced: 0
+    parent: {fileID: 0}
   - enabled: 1
     direction: 1
+    enforced: 0
+    parent: {fileID: 0}
   - enabled: 0
     direction: 0
+    enforced: 0
+    parent: {fileID: 0}
   - enabled: 0
     direction: 0
+    enforced: 0
+    parent: {fileID: 0}
+  machineMode: 1
+--- !u!114 &-7354176460892630355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6767256468363057745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48825be551cb7c647970ec0bcb957fbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mergeID: 3
+  neighbors: []
+  flow: {fileID: 0}
+  connectorPrefab: {fileID: -7478227228420135192, guid: 1ff1e3ef12e91894094b84bbb670682a, type: 3}

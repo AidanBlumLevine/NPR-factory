@@ -11,6 +11,7 @@ public class Machine : Tile
     {
         foreach (FlowConnection c in flow.connections)
             c.enforced = true;
+        flow.machineMode = true;
         base.Set(neighbors);
         SetConnections();
     }

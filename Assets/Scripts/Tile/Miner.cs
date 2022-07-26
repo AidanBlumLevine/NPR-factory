@@ -29,16 +29,22 @@ public class Miner : Machine
     void Update()
     {
         productionTimer += Time.deltaTime;
-        if (productionTimer > 3000)
+        if (productionTimer > 3)
         {
             productionTimer = 0;
-            for (int i = 0; i < 4; i++)
+            
+            if(Item.NItemsGlobal(transform.position,.1f) > 0)
+                return;
+
+            for (int i = 0; i < 6; i++)
             {
-                FlowConnection fc = flow.connections[(nextSide + i) % 4];
+                int tryExportDir = (nextSide + i) % 6;
+                FlowConnection fc = flow.connections[tryExportDir];
                 if (fc.attachedTo != null)
                 {
                     nextSide += i + 1;
                     Item newItem = Instantiate(minedItem.gameObject, transform.position, Quaternion.identity).GetComponent<Item>();
+                    newItem.Set(Tile.DirVectors[5-tryExportDir], fc.entry);
                     break;
                 }
             }

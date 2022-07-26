@@ -135,13 +135,26 @@ MonoBehaviour:
   connections:
   - enabled: 0
     direction: 0
+    enforced: 0
+    parent: {fileID: 0}
   - enabled: 1
     direction: 0
+    enforced: 0
+    parent: {fileID: 0}
   - enabled: 1
     direction: 0
+    enforced: 0
+    parent: {fileID: 0}
   - enabled: 1
     direction: 0
+    enforced: 0
+    parent: {fileID: 0}
   - enabled: 1
     direction: 0
+    enforced: 0
+    parent: {fileID: 0}
   - enabled: 0
     direction: 0
+    enforced: 0
+    parent: {fileID: 0}
+  machineMode: 0

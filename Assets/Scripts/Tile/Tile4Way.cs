@@ -9,6 +9,12 @@ public class Tile4Way : Tile
     bool oldf, oldb, oldl, oldr;
     public override void Set(Tile[] neighbors)
     {
+        flow.connections[0].enabled = true;
+        flow.connections[1].enabled = true;
+        flow.connections[2].enabled = true;
+        flow.connections[3].enabled = true;
+        flow.connections[4].enabled = true;
+        flow.connections[5].enabled = true;
         base.Set(neighbors);
         SetAppearance();
     }

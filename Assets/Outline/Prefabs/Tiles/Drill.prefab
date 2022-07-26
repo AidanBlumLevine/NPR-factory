@@ -386,6 +386,7 @@ MonoBehaviour:
     direction: 0
     enforced: 0
     parent: {fileID: 0}
+  machineMode: 1
 --- !u!114 &8180284006027050730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,7 +403,7 @@ MonoBehaviour:
   neighbors: []
   flow: {fileID: 0}
   connectorPrefab: {fileID: -7478227228420135192, guid: 1ff1e3ef12e91894094b84bbb670682a, type: 3}
-  minedItem: {fileID: 0}
+  minedItem: {fileID: 7610240823034189066, guid: db3af244a19062b44a4fa32b2a289f47, type: 3}
 --- !u!1 &3549877048991054947
 GameObject:
   m_ObjectHideFlags: 0
