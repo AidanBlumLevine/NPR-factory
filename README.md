@@ -7,3 +7,6 @@
   Sadly, this does not work on some browsers since it requires webgl 2.0
 
   **See the demo [here](https://aidanblumlevine.github.io/NPR-factory/)**
+
+  There are some resolution based quirks I still havent worked out, but here is how it looks at 1920x1080: 
+  ![image](https://github.com/AidanBlumLevine/NPR-factory/blob/main/procedural-handdrawn.png)
